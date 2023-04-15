@@ -1,6 +1,7 @@
 package com.bank.vote.config;
 
 import com.bank.vote.user.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,17 +13,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
+@EnableTransactionManagement
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
     private final UserRepository userRepository;
 
     @Bean
+    @Transactional
     public UserDetailsService userDetailsService() {
         // Fetch UserDetail by using userRepository
-        return username -> userRepository.findByEmail(username)
+        return username -> userRepository.findUserByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
