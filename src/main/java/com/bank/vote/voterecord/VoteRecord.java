@@ -3,11 +3,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 @Entity
 @Table(name = "vote_record")
 public class VoteRecord {
