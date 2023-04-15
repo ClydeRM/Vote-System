@@ -6,6 +6,14 @@
 docker compose up -d
 ```
 
+##  Start Vue
+要在 `vote/vue/vote-app/` 之下
+```sh
+npm install
+
+npm run serve
+```
+
 
 ##  專案結構
 ```
