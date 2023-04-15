@@ -1,7 +1,6 @@
 package com.bank.vote.dashboard;
 
 import com.bank.vote.voteitem.VoteItem;
-import com.bank.vote.voting.VoteRecordRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
