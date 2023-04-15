@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.security.Security;
 
 import jakarta.transaction.TransactionScoped;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
