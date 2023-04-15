@@ -31,6 +31,19 @@ $BODY$;
 ALTER FUNCTION public.findbyuseridandvoteitemid(integer, integer)
     OWNER TO admin;
 
+-- Function: public.deletebyvoteitemid()
+
+CREATE OR REPLACE FUNCTION deletebyvoteitemid(itemId INTEGER)
+    RETURNS VOID AS $$
+BEGIN
+    DELETE FROM vote_record WHERE vote_item_id = itemId;
+END;
+$$ LANGUAGE plpgsql;
+
+ALTER FUNCTION public.deletebyvoteitemid(integer)
+    OWNER TO admin;
+
+
 
 -- Function: public.find_user_by_email(VARCHAR)
 
