@@ -21,8 +21,11 @@ npm run serve
 ├── vote
     ├── .idea/ intellij 設定
     ├── .mvm/
+    ├── DB
+         ├── DDL.sql
+         └── DML.sql
     ├── src/
-         └──main/ 所有的程式
+         └──main
              ├──java
                  └── com/bank/vote
                     ├── auth
