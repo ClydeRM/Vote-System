@@ -1,4 +1,4 @@
-package com.bank.vote.voting;
+package com.bank.vote.votemodule;
 
 
 import com.bank.vote.user.User;
