@@ -35,7 +35,7 @@ public class AuthenticationService {
 
     @Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public Optional<AuthenticationResponse> register(RegisterRequest request) {
-        Optional<User> exist = repository.findUserByEmail(request.getEmail());
+        Optional<User> exist = repository.findByEmail(request.getEmail());
         if (exist.isPresent()){
             throw new AuthenticationException("Credential taken.") {};
         }
@@ -62,7 +62,7 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        var user = repository.findUserByEmail(request.getEmail())
+        var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
@@ -109,7 +109,7 @@ public class AuthenticationService {
         refreshToken = authHeader.substring(7);
         userEmail = jwtService.extractUsername(refreshToken);
         if (userEmail != null) {
-            var user = this.repository.findUserByEmail(userEmail)
+            var user = this.repository.findByEmail(userEmail)
                     .orElseThrow();
             if (jwtService.isTokenValid(refreshToken, user)) {
                 var accessToken = jwtService.generateToken(user);
