@@ -66,4 +66,13 @@ public class VoteRecordService {
         }
         return true;
     }
+
+    @Transactional(readOnly= false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public void deleteRecord(int itemId){
+        Optional<VoteItem> item = voteItemRepository.findById(itemId);
+        if (item.isEmpty()){
+            return;
+        }
+        voteRecordRepository.deleteByVoteItemId(itemId);
+    }
 }
