@@ -103,6 +103,10 @@ public class ApplicationConfig {
                     2,
                     "滑鼠"
             );
+            VoteItem item3 = new VoteItem(
+                    3,
+                    "鍵盤"
+            );
             VoteRecord record1 = new VoteRecord(
                     1,
                     1,
@@ -144,7 +148,7 @@ public class ApplicationConfig {
                     List.of(Leo, Sandy, Randy, RSY)
             );
             voteItemRepository.saveAll(
-                    List.of(item1, item2)
+                    List.of(item1, item2, item3)
             );
             voteRecordRepository.saveAll(
                     List.of(record1,
