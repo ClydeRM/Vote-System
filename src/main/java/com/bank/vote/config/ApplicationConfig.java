@@ -26,7 +26,7 @@ public class ApplicationConfig {
     @Transactional
     public UserDetailsService userDetailsService() {
         // Fetch UserDetail by using userRepository
-        return username -> userRepository.findByEmail(username)
+        return username -> userRepository.findUserByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
