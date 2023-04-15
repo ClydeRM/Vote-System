@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/dashboard")
 @EnableTransactionManagement
+@CrossOrigin(origins = "*")
 public class DashboardController {
 
     private final VoteItemService voteItemService;

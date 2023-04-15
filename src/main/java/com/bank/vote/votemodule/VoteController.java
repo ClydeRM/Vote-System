@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/vote")
 @EnableTransactionManagement
+@CrossOrigin(origins = "*")
 public class VoteController {
 
     private final VoteRecordService voteRecordService;
