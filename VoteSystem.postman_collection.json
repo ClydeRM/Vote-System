@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "9a8892c8-23f5-4a74-864e-75a9f653d85e",
+		"name": "VoteSystem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"NewUser\",\n    \"email\": \"newUser@mail.com\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllVoteItem",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsZW9AbWFpbC5jb20iLCJpYXQiOjE2ODE1MzM5NjgsImV4cCI6MTY4MTYyMDM2OH0.cPQjpHR-ZVii8ALdnODt_X1DTKDSpN-sIyOaJrYfpNY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/dashboard/voteItems",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"dashboard",
+						"voteItems"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "demo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsZW9AbWFpbC5jb20iLCJpYXQiOjE2ODE0NDAwMzQsImV4cCI6MTY4MTQ0MDA5NH0.b1JeJpSOuEFvAmuWBgw44wLSc-LBCtNDmTOYsrUdjb8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/demo-controller",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"demo-controller"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"leo@mail.com\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/auth/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addVoteItems",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsZW9AbWFpbC5jb20iLCJpYXQiOjE2ODE1MzIyODEsImV4cCI6MTY4MTYxODY4MX0.e6gjBWXnU3rvnwIloAtBunZd2e5k0kl4co53GoqDvcY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"itemName\": \"鍵盤\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/dashboard/voteItems",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"dashboard",
+						"voteItems"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteVoteItems",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsZW9AbWFpbC5jb20iLCJpYXQiOjE2ODE1MzIyODEsImV4cCI6MTY4MTYxODY4MX0.e6gjBWXnU3rvnwIloAtBunZd2e5k0kl4co53GoqDvcY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/dashboard/voteItems/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"dashboard",
+						"voteItems",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllVoteRecords",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsZW9AbWFpbC5jb20iLCJpYXQiOjE2ODE1MzM5NjgsImV4cCI6MTY4MTYyMDM2OH0.cPQjpHR-ZVii8ALdnODt_X1DTKDSpN-sIyOaJrYfpNY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/vote/voteRecords",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"vote",
+						"voteRecords"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VotingItem",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsZW9AbWFpbC5jb20iLCJpYXQiOjE2ODE1MzIyODEsImV4cCI6MTY4MTYxODY4MX0.e6gjBWXnU3rvnwIloAtBunZd2e5k0kl4co53GoqDvcY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"selectedItems\": [3]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/vote/voteRecords",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"vote",
+						"voteRecords"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
