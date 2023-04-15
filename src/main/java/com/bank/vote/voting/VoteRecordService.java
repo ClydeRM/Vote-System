@@ -9,6 +9,9 @@ import com.bank.vote.voterecord.VoteRecord;
 import com.bank.vote.voterecord.VoteRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,7 @@ public class VoteRecordService {
         return results;
     }
 
+    @Transactional(readOnly= false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public boolean voteRecords(int userId, List<Integer> selectedItems) {
         // Check user、 voteItem is existed
         Optional<User> user = userRepository.findById(userId);
