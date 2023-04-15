@@ -61,7 +61,9 @@ public class VoteRecordService {
                 continue;
             VoteRecord voteRecord = new VoteRecord();
             voteRecord.setUserId(userId);
+            voteRecord.setUsername(user.get().getRealUsername());
             voteRecord.setVoteItemId(itemId);
+            System.out.println(voteRecord.toString());
             voteRecordRepository.save(voteRecord);
         }
         return true;
