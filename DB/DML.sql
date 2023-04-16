@@ -1,49 +1,38 @@
--- Function: public.countbyvoteitemid(integer)
+-- Function: public.count_by_vote_item_id(integer)
 
-CREATE OR REPLACE FUNCTION public.countbyvoteitemid(
+CREATE OR REPLACE FUNCTION public.count_by_vote_item_id(
     IN itemId integer
 )
     RETURNS integer
     LANGUAGE 'plpgsql'
-AS $BODY$
+AS $$
 BEGIN
     RETURN (SELECT COUNT(*) FROM vote_record WHERE vote_item_id = itemId);
 END;
-$BODY$;
+$$;
 
-ALTER FUNCTION public.countbyvoteitemid(integer)
-    OWNER TO admin;
+-- Function: public.find_by_user_id_and_vote_item_id()
 
--- Function: public.count_vote_record_by_item_id()
-
-CREATE OR REPLACE FUNCTION public.findbyuseridandvoteitemid(
+CREATE OR REPLACE FUNCTION public.find_by_user_id_and_vote_item_id(
     IN userId integer,
-    IN itemId integer
+    IN voteItemId integer
 )
     RETURNS SETOF vote_record
     LANGUAGE 'plpgsql'
-AS $BODY$
+AS $$
 BEGIN
-    RETURN QUERY SELECT * FROM public.vote_record WHERE user_id = userId AND vote_item_id = itemId;
+    RETURN QUERY SELECT * FROM public.vote_record WHERE user_id = userId AND vote_item_id = voteItemId;
 END;
-$BODY$;
+$$;
 
-ALTER FUNCTION public.findbyuseridandvoteitemid(integer, integer)
-    OWNER TO admin;
+-- Function: public.delete_by_vote_item_id()
 
--- Function: public.deletebyvoteitemid()
-
-CREATE OR REPLACE FUNCTION deletebyvoteitemid(itemId INTEGER)
+CREATE OR REPLACE FUNCTION delete_by_vote_item_id(voteItemId INTEGER)
     RETURNS VOID AS $$
 BEGIN
-    DELETE FROM vote_record WHERE vote_item_id = itemId;
+    DELETE FROM vote_record WHERE vote_item_id = voteItemId;
 END;
 $$ LANGUAGE plpgsql;
-
-ALTER FUNCTION public.deletebyvoteitemid(integer)
-    OWNER TO admin;
-
-
 
 -- Function: public.find_user_by_email(VARCHAR)
 
