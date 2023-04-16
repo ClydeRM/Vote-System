@@ -29,11 +29,12 @@ npm run serve
              ├──java
                  └── com/bank/vote
                     ├── auth
+                        ├── DTO
+                            ├── AuthenticationRequest // LoginDTO email & pwd
+                            ├── AuthenticationResponse // ResponseDTO at & rt
+                            └── RegisterRequest// RegisterDTO uersname email & pwd 
                         ├── AuthenticationController // register authenticate refresh 路由
-                        ├── AuthenticationRequest // LoginDTO email & pwd
-                        ├── AuthenticationResponse // ResponseDTO at & rt
-                        ├── AuthenticationService // Authentication Business Login
-                        └── RegisterRequest// RegisterDTO uersname email & pwd 
+                        └──  AuthenticationService // Authentication Business Login
                     ├── config
                         ├── ApplicationConfig // AuthenticationProvider AuthenticationManager etc..
                         ├── JwtAuthenticationFilter // Extends OncePerRequestFilter 
@@ -41,8 +42,7 @@ npm run serve
                         ├── LogoutService // Implement LogoutHandler Logout Logic
                         └── SecurityConfiguraion // Setup FilterChain
                     ├── dashboard
-                        ├── DashboardController // Fetch and handle VoteItem
-                        └── VoteItemService //  VoteItem Business Logic
+                        └──  DashboardController // Fetch and handle VoteItem
                     ├── token
                         ├── TokenType // Token 
                         ├── TypeToken // Token Entity
@@ -53,11 +53,13 @@ npm run serve
                         └── UserRepository  // Repository
                     ├── voteitem
                         ├── VoteItem // VoteItem Entity
-                        └── VoteItemRepository // Repository
+                        ├── VoteItemRepository // Repository
+                        └── VoteItemService //  VoteItem Business Logic
                     ├── votemodule
+                        ├── DTO
+                            ├── VoteRecordRequest // VoteRecordDTO
+                            └── VoteRecordResult // VoteRecordDTO 
                         ├── VoteController // getAllVoteRecord & Voting
-                        ├── VoteRecordRequest // VoteRecordDTO
-                        ├── VoteRecordResult // VoteRecordDTO 
                         └── VoteRecordService // Voting Business Logic
                     ├── voterecord
                         ├── VoteRecord // VoteRecord Entity
