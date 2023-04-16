@@ -5,13 +5,13 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 
 public interface VoteRecordRepository extends JpaRepository<VoteRecord, Integer> {
-    @Procedure(name = "countbyvoteitemid")
-    Integer countByVoteItemId(@Param("item_id") Integer itemId);
+    @Procedure(value = "count_by_vote_item_id")
+    Integer countByVoteItemId(@Param("voteItemId") Integer voteItemId);
 
-    @Procedure(name = "findbyuseridandvoteitemid")
-    VoteRecord findByUserIdAndVoteItemId(@Param("user_id") Integer userId, @Param("item_id") Integer voteItemId);
+    @Procedure(value = "find_by_user_id_and_vote_item_id")
+    VoteRecord findByUserIdAndVoteItemId(@Param("userId") Integer userId, @Param("voteItemId") Integer voteItemId);
 
-    @Procedure(name = "deletebyvoteitemid")
-    void deleteByVoteItemId(@Param("item_id") Integer itemId);
+    @Procedure(value = "delete_by_vote_item_id")
+    void deleteByVoteItemId(@Param("voteItemId") Integer voteItemId);
 
 }
