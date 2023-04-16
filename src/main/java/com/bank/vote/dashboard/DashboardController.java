@@ -1,7 +1,7 @@
 package com.bank.vote.dashboard;
 
 import com.bank.vote.voteitem.VoteItem;
-import com.bank.vote.voterecord.VoteRecordRepository;
+import com.bank.vote.voteitem.VoteItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.ResponseEntity;
