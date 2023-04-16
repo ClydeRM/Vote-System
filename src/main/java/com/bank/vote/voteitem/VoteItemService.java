@@ -1,4 +1,4 @@
-package com.bank.vote.dashboard;
+package com.bank.vote.voteitem;
 
 import com.bank.vote.voterecord.VoteRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
