@@ -1,5 +1,8 @@
 package com.bank.vote.auth;
 
+import com.bank.vote.auth.DTO.AuthenticationRequest;
+import com.bank.vote.auth.DTO.AuthenticationResponse;
+import com.bank.vote.auth.DTO.RegisterRequest;
 import com.bank.vote.common.Exceptions.EmailAlreadyRegisteredException;
 import com.bank.vote.config.JwtService;
 import com.bank.vote.token.Token;

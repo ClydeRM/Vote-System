@@ -1,4 +1,4 @@
-package com.bank.vote.auth;
+package com.bank.vote.auth.DTO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

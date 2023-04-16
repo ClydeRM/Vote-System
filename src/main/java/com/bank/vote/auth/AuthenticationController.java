@@ -1,5 +1,8 @@
 package com.bank.vote.auth;
 
+import com.bank.vote.auth.DTO.AuthenticationRequest;
+import com.bank.vote.auth.DTO.AuthenticationResponse;
+import com.bank.vote.auth.DTO.RegisterRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.bank.vote.auth;
+package com.bank.vote.auth.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
