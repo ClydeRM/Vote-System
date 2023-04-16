@@ -5,7 +5,8 @@ CREATE OR REPLACE FUNCTION public.count_by_vote_item_id(
 )
     RETURNS integer
     LANGUAGE 'plpgsql'
-AS $$
+AS
+$$
 BEGIN
     RETURN (SELECT COUNT(*) FROM vote_record WHERE vote_item_id = itemId);
 END;
@@ -19,57 +20,71 @@ CREATE OR REPLACE FUNCTION public.find_by_user_id_and_vote_item_id(
 )
     RETURNS SETOF vote_record
     LANGUAGE 'plpgsql'
-AS $$
+AS
+$$
 BEGIN
-    RETURN QUERY SELECT * FROM public.vote_record WHERE user_id = userId AND vote_item_id = voteItemId;
+    RETURN QUERY SELECT * FROM vote_record WHERE user_id = userId AND vote_item_id = voteItemId;
 END;
 $$;
 
--- Function: public.delete_by_vote_item_id()
+-- Function: public.delete_by_vote_item_id(INTEGER)
 
-CREATE OR REPLACE FUNCTION delete_by_vote_item_id(voteItemId INTEGER)
-    RETURNS VOID AS $$
+CREATE OR REPLACE FUNCTION delete_by_vote_item_id(
+    IN voteItemId INTEGER
+)
+    RETURNS VOID
+    LANGUAGE 'plpgsql'
+AS
+$$
 BEGIN
     DELETE FROM vote_record WHERE vote_item_id = voteItemId;
 END;
-$$ LANGUAGE plpgsql;
+$$;
 
 -- Function: public.find_user_by_email(VARCHAR)
 
-CREATE OR REPLACE FUNCTION public.finduserbyemail(email_in VARCHAR)
-    RETURNS TABLE (id INTEGER, username VARCHAR, email VARCHAR, password VARCHAR, role varchar) AS $$
+CREATE OR REPLACE FUNCTION public.find_user_by_email(
+    IN email_in VARCHAR
+)
+    RETURNS SETOF _user
+    LANGUAGE 'plpgsql'
+AS
+$$
 BEGIN
-    RETURN QUERY SELECT u.* FROM _user u WHERE u.email = email_in;
+    RETURN QUERY SELECT * FROM _user u WHERE u.email = email_in;
 END;
-$$ LANGUAGE plpgsql;
-
-ALTER FUNCTION public.finduserbyemail(VARCHAR)
-    OWNER TO admin;
+$$;
 
 
 -- Function: public.find_all_valid_token_by_user(integer)
 
-CREATE OR REPLACE FUNCTION public.findallvalidtokenbyuser(IN user_id_in INTEGER, OUT refcursor REFCURSOR)
-AS $$
+CREATE OR REPLACE FUNCTION public.find_all_valid_token_by_user(
+    IN user_id_in INTEGER
+)
+    RETURNS SETOF token
+    LANGUAGE 'plpgsql'
+AS
+$$
 BEGIN
-    OPEN refcursor FOR
-        SELECT t.* FROM token t
-                            INNER JOIN "_user" u ON t.user_id = u.id
-        WHERE u.id = user_id_in AND (t.expired = false OR t.revoked = false);
+    RETURN QUERY SELECT *
+                 FROM token t
+                          INNER JOIN "_user" u ON t.user_id = u.id
+                 WHERE u.id = user_id_in
+                   AND (t.expired = false OR t.revoked = false);
 END
-$$ LANGUAGE plpgsql;
+$$;
 
-ALTER FUNCTION public.findallvalidtokenbyuser(integer)
-    OWNER TO admin;
 
--- Function: public.find_token_by_token(integer)
+-- Function: public.find_token_by_token(VARCHAR)
 
-CREATE OR REPLACE FUNCTION public.findtokenbytoken(IN token_in VARCHAR)
-    RETURNS TABLE (id INTEGER, token VARCHAR, revoked BOOLEAN, expired BOOLEAN, user_id INTEGER) AS $$
+CREATE OR REPLACE FUNCTION public.find_token_by_token(
+    IN token_in VARCHAR
+)
+    RETURNS SETOF token
+    LANGUAGE plpgsql
+    AS $$
 BEGIN
-    RETURN QUERY SELECT t.* FROM token t WHERE t.token = token_in;
+    RETURN QUERY SELECT * FROM token t WHERE t.token = token_in;
 END;
-$$ LANGUAGE plpgsql;
+$$;
 
-ALTER FUNCTION public.findtokenbytoken(VARCHAR)
-    OWNER TO admin;
