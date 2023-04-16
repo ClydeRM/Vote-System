@@ -1,5 +1,6 @@
 package com.bank.vote.auth;
 
+import com.bank.vote.common.Exceptions.EmailAlreadyRegisteredException;
 import com.bank.vote.config.JwtService;
 import com.bank.vote.token.Token;
 import com.bank.vote.token.TokenRepository;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -35,9 +37,9 @@ public class AuthenticationService {
 
     @Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public Optional<AuthenticationResponse> register(RegisterRequest request) {
-        Optional<User> exist = repository.findByEmail(request.getEmail());
-        if (exist.isPresent()){
-            throw new AuthenticationException("Credential taken.") {};
+        Optional<User> existingUser = repository.findByEmail(request.getEmail());
+        if (existingUser.isPresent()) {
+            throw new EmailAlreadyRegisteredException("Email already registered");
         }
         var user = User.builder()
                 .username(request.getUsername())
@@ -56,14 +58,14 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        var user = repository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()
                 )
         );
-        var user = repository.findByEmail(request.getEmail())
-                .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
