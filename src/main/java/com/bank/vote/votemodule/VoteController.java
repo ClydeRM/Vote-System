@@ -2,6 +2,8 @@ package com.bank.vote.votemodule;
 
 
 import com.bank.vote.user.User;
+import com.bank.vote.votemodule.DTO.VoteRecordRequest;
+import com.bank.vote.votemodule.DTO.VoteRecordResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +29,7 @@ public class VoteController {
 
 
     @GetMapping("/voteRecords")
-    public List<VoteRecordResult> getVoteItemResults() {
+    public List<VoteRecordResponse> getVoteItemResults() {
         return voteRecordService.getVoteItemResults();
     }
 

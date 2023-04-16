@@ -1,13 +1,16 @@
 package com.bank.vote.votemodule;
 
 
+import com.bank.vote.common.Exceptions.VoteItemNotFoundException;
 import com.bank.vote.user.User;
 import com.bank.vote.user.UserRepository;
 import com.bank.vote.voteitem.VoteItem;
 import com.bank.vote.voteitem.VoteItemRepository;
+import com.bank.vote.votemodule.DTO.VoteRecordResponse;
 import com.bank.vote.voterecord.VoteRecord;
 import com.bank.vote.voterecord.VoteRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -31,13 +34,13 @@ public class VoteRecordService {
         this.userRepository = userRepository;
     }
 
-    public List<VoteRecordResult> getVoteItemResults() {
+    public List<VoteRecordResponse> getVoteItemResults() {
         List<VoteItem> voteItems = voteItemRepository.findAll();
-        List<VoteRecordResult> results = new ArrayList<>();
+        List<VoteRecordResponse> results = new ArrayList<>();
 
         for (VoteItem item : voteItems) {
             Integer count = voteRecordRepository.countByVoteItemId(item.getItemId());
-            results.add(new VoteRecordResult(item.getItemId(), item.getItemName(), count));
+            results.add(new VoteRecordResponse(item.getItemId(), item.getItemName(), count));
         }
 
         return results;
@@ -46,24 +49,24 @@ public class VoteRecordService {
     @Transactional(readOnly= false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public boolean voteRecords(int userId, List<Integer> selectedItems) {
         // Check user、 voteItem is existed
-        Optional<User> user = userRepository.findById(userId);
-        if (user.isEmpty()){
-            return false;
+        Optional<User> existingUser = userRepository.findById(userId);
+        if (existingUser.isEmpty()) {
+            throw new UsernameNotFoundException("User not found");
         }
 
         for (Integer itemId : selectedItems) {
             Optional<VoteItem> item = voteItemRepository.findById(itemId);
             if (item.isEmpty()){
-                return false;
+                throw new VoteItemNotFoundException("Item not found");
             }
             Optional<VoteRecord> record = Optional.ofNullable(voteRecordRepository.findByUserIdAndVoteItemId(userId, itemId));
+            // Can't re-poll same VoteItem
             if (record.isPresent())
                 continue;
             VoteRecord voteRecord = new VoteRecord();
             voteRecord.setUserId(userId);
-            voteRecord.setUsername(user.get().getRealUsername());
+            voteRecord.setUsername(existingUser.get().getRealUsername());
             voteRecord.setVoteItemId(itemId);
-            System.out.println(voteRecord.toString());
             voteRecordRepository.save(voteRecord);
         }
         return true;
@@ -71,9 +74,9 @@ public class VoteRecordService {
 
     @Transactional(readOnly= false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public void deleteRecord(int itemId){
-        Optional<VoteItem> item = voteItemRepository.findById(itemId);
-        if (item.isEmpty()){
-            return;
+        Optional<VoteItem> existingItem = voteItemRepository.findById(itemId);
+        if (existingItem.isEmpty()){
+            throw new VoteItemNotFoundException("Item not found.");
         }
         voteRecordRepository.deleteByVoteItemId(itemId);
     }
