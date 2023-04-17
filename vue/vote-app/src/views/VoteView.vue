@@ -32,6 +32,7 @@
 import { reactive } from 'vue';
 import axios from 'axios';
 import { store } from '../store';
+import { checkValue } from '../common/CheckValue';
 
 export default {
   name: 'VoteView',
@@ -58,8 +59,9 @@ export default {
 
     const submitVoteRecords = async () => {
       try {
+        const validStatement = checkValue(state.selectedItems);
         await axios.post('http://localhost:8080/api/v1/vote/voteRecords', {
-          selectedItems: Array.from(state.selectedItems.split(','), item => parseInt(item)),
+          selectedItems: Array.from(validStatement.split(','), item => parseInt(item)),
         }, {
           headers: {
             Authorization: `Bearer ${store.state.accessToken}`,

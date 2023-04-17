@@ -24,6 +24,7 @@ import { reactive } from "vue";
 import { store } from "../store";
 import { useRouter } from "vue-router";
 import axios from "axios";
+import { checkValue } from "../common/CheckValue";
 export default {
   setup() {
     const state = reactive({
@@ -34,20 +35,14 @@ export default {
 
     const login = async () => {
       const { email, password } = state;
-      const passwordRegex = /^[a-zA-Z0-9]{6,12}$/;
-      const emailRegex = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
+      const validEmail = checkValue(email);
+      const validPassword = checkValue(password);
       try {
-        if (!emailRegex.test(email)) {
-          throw new Error('Credentials are not valid.')
-        }
-        if (!passwordRegex.test(password)) {
-          throw new Error('Credentials are not valid.')
-        }
         const response = await axios.post(
           "http://localhost:8080/api/v1/auth/authenticate",
           {
-            email: email,
-            password: password,
+            email: validEmail,
+            password: validPassword,
           }
         );
 

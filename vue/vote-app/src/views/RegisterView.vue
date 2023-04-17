@@ -16,7 +16,12 @@
         <tr>
           <td><label for="password">Password:</label></td>
           <td>
-            <input type="password" id="password" placeholder="6-12" v-model="state.password" />
+            <input
+              type="password"
+              id="password"
+              placeholder="6-12"
+              v-model="state.password"
+            />
           </td>
         </tr>
       </tbody>
@@ -32,6 +37,7 @@ import { reactive } from "vue";
 import { store } from "../store";
 import { useRouter } from "vue-router";
 import axios from "axios";
+import { checkValue } from "../common/CheckValue";
 export default {
   setup() {
     const state = reactive({
@@ -44,26 +50,17 @@ export default {
     const register = async () => {
       const { username, email, password } = state;
 
-      const passwordRegex = /^[a-zA-Z0-9]{6,12}$/;
-      const emailRegex = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
-      const usernameRegex = /^[^\s@~!#$%&*|?-\\+]+$/;
-      
       try {
-        if (!emailRegex.test(email)) {
-          throw new Error("Credentials are not valid.");
-        }
-        if (!passwordRegex.test(password)) {
-          throw new Error("Credentials are not valid.");
-        }
-        if (!usernameRegex.test(username)) {
-          throw new Error("Credentials are not valid.");
-        }
+        const validUsername = checkValue(username);
+        const validEmail = checkValue(email);
+        const validPassword = checkValue(password);
+
         const response = await axios.post(
           "http://localhost:8080/api/v1/auth/register",
           {
-            username: username,
-            email: email,
-            password: password,
+            username: validUsername,
+            email: validEmail,
+            password: validPassword,
           }
         );
 

@@ -22,6 +22,7 @@
 import { reactive, toRefs } from "vue";
 import { store } from "../store";
 import axios from "axios";
+import { checkValue } from '../common/CheckValue';
 
 export default {
   setup() {
@@ -48,15 +49,13 @@ export default {
     }
 
     async function addItem() {
-      const itemRegex = /^[^\s@~!#$%&*|?-\\+]+$/;
+      
       try {
-        if (!itemRegex.test(state.itemName)) {
-          throw new Error("Value not allow.");
-        }
+        const validItemName = checkValue(state.itemName);
         const response = await axios.post(
           "http://localhost:8080/api/v1/dashboard/voteItems",
           {
-            itemName: state.itemName,
+            itemName: validItemName,
           },
           {
             headers: {
