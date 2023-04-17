@@ -6,7 +6,6 @@ import com.bank.vote.votemodule.DTO.VoteRecordRequest;
 import com.bank.vote.votemodule.DTO.VoteRecordResponse;
 import com.bank.vote.voterecord.VoteRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,15 +39,15 @@ public class VoteController {
     }
 
     @PostMapping("/voteRecords")
-    public ResponseEntity<String> pollVoteRecords(@RequestBody VoteRecordRequest voteRecordRequest) {
+    public ResponseEntity<Void> pollVoteRecords(@RequestBody VoteRecordRequest voteRecordRequest) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User userDetails = (User) authentication.getPrincipal();
         Integer userId = userDetails.getId();
         boolean isSuccess = voteRecordService.addVoteRecords(userId, voteRecordRequest.getSelectedItems());
         if (isSuccess) {
-            return ResponseEntity.ok().body("Success!");
+            return ResponseEntity.ok().build();
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad Request!");
+            return ResponseEntity.badRequest().build();
         }
     }
 }
