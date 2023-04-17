@@ -34,8 +34,15 @@ export default {
 
     const login = async () => {
       const { email, password } = state;
-
+      const passwordRegex = /^[a-zA-Z0-9]+$/;
+      const emailRegex = /^[^\s@~!#$%&*|?]+@[^\s@~!#$%&*|?]+\.[^\s@~!#$%&*|?]+$/;
       try {
+        if (!emailRegex.test(email)) {
+          throw new Error('Credentials are not valid.')
+        }
+        if (!passwordRegex.test(password)) {
+          throw new Error('Credentials are not valid.')
+        }
         const response = await axios.post(
           "http://localhost:8080/api/v1/auth/authenticate",
           {
@@ -49,6 +56,7 @@ export default {
         router.push("/dashboard");
       } catch (error) {
         console.error(error);
+        throw error;
       }
     };
 

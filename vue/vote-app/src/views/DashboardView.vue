@@ -48,7 +48,11 @@ export default {
     }
 
     async function addItem() {
+      const itemRegex = /^[^\s@~!#$%&*|?-\\+]+$/;
       try {
+        if (!itemRegex.test(state.itemName)) {
+          throw new Error("Value not allow.");
+        }
         const response = await axios.post(
           "http://localhost:8080/api/v1/dashboard/voteItems",
           {
@@ -64,6 +68,7 @@ export default {
         state.itemName = "";
       } catch (error) {
         console.error(error);
+        throw error;
       }
     }
 
