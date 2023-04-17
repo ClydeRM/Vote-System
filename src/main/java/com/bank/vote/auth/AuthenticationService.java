@@ -3,6 +3,7 @@ package com.bank.vote.auth;
 import com.bank.vote.auth.DTO.AuthenticationRequest;
 import com.bank.vote.auth.DTO.AuthenticationResponse;
 import com.bank.vote.auth.DTO.RegisterRequest;
+import com.bank.vote.common.Exceptions.CredentialException;
 import com.bank.vote.common.Exceptions.EmailAlreadyRegisteredException;
 import com.bank.vote.config.JwtService;
 import com.bank.vote.token.Token;
@@ -35,6 +36,15 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public Optional<AuthenticationResponse> register(RegisterRequest request) {
+        if (!isValidEmail(request.getEmail())){
+            throw new CredentialException("Credential not valid");
+        }
+        if (!isValidPassword(request.getPassword())){
+            throw new CredentialException("Credential not valid");
+        }
+        if (!isValidUserName(request.getUsername())){
+            throw new CredentialException("Credential not valid");
+        }
         Optional<User> existingUser = repository.findByEmail(request.getEmail());
         if (existingUser.isPresent()) {
             throw new EmailAlreadyRegisteredException("Email already registered");
@@ -56,6 +66,12 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        if (!isValidEmail(request.getEmail())){
+            throw new CredentialException("Credential not valid");
+        }
+        if (!isValidPassword(request.getPassword())){
+            throw new CredentialException("Credential not valid");
+        }
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         authenticationManager.authenticate(
@@ -83,6 +99,21 @@ public class AuthenticationService {
                 .revoked(false)
                 .build();
         tokenRepository.save(token);
+    }
+
+    private boolean isValidEmail(String email) {
+        String regex = "^[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        return email.matches(regex);
+    }
+
+    private boolean isValidPassword(String password) {
+        String regex = "^[A-Za-z0-9]+$";
+        return password.matches(regex);
+    }
+
+    private boolean isValidUserName(String username) {
+        String regex = "^[\\p{L}A-Za-z0-9]+$";
+        return username.matches(regex);
     }
 
     private void revokeAllUserTokens(User user) {
