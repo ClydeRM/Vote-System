@@ -1,25 +1,25 @@
 <template>
-  <div>
-    <h1>Dashboard</h1>
-    <button @click="getAllVoteItems">Get All Vote Items</button>
-    <br />
-    <input type="text" v-model="itemName" placeholder="New Item" />
-    <button @click="addItem">Add New Item</button>
-    <br />
+  <h1>Dashboard</h1>
+  <div class="container container d-flex flex-column justify-content-center align-items-center">
+    <button @click="getAllVoteItems">得到所有投票項目</button>
+    <div>
+      <input type="text" v-model="itemName" placeholder="New Item" />
+      <button @click="addItem">增加新投票項目</button>
+    </div>
     <ul>
       <li v-for="(item, index) in voteItems" :key="index">
         {{ item.itemName }}
-        <button @click="deleteItem(item.itemId, item.itemName)">Delete</button>
+        <button @click="deleteItem(item.itemId, item.itemName)">刪除</button>
       </li>
     </ul>
     <div>
-      <router-link to="/voting">投票</router-link>
+      <router-link to="/voting">去投票</router-link>
     </div>
   </div>
 </template>
 
 <script>
-import { reactive, toRefs, ref } from "vue";
+import { reactive, toRefs } from "vue";
 import { store } from "../store";
 import axios from "axios";
 
@@ -28,7 +28,7 @@ export default {
     const state = reactive({
       itemName: "",
     });
-    const voteItems = ref([]);
+    const voteItems = reactive([]);
 
     async function getAllVoteItems() {
       try {
@@ -40,8 +40,8 @@ export default {
             },
           }
         );
-        voteItems.value.splice(0);
-        voteItems.value.push(...response.data);
+        voteItems.splice(0);
+        voteItems.push(...response.data);
       } catch (error) {
         console.error(error);
       }
@@ -60,7 +60,7 @@ export default {
             },
           }
         );
-        voteItems.value.push(response.data);
+        voteItems.push(response.data);
         state.itemName = "";
       } catch (error) {
         console.error(error);
@@ -77,11 +77,11 @@ export default {
             },
           }
         );
-        const itemIndex = voteItems.value.findIndex(
+        const itemIndex = voteItems.findIndex(
           (item) => item.itemName === itemName
         );
         if (itemIndex !== -1) {
-          voteItems.value.splice(itemIndex, 1);
+          voteItems.splice(itemIndex, 1);
         }
       } catch (error) {
         console.error(error);

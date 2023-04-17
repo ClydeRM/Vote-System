@@ -1,6 +1,6 @@
 <template>
   <h1>RegisterPage</h1>
-  <div class="container">
+  <div class="container container d-flex flex-column justify-content-center align-items-center">
     <div>
       <label for="username">Username:</label>
       <input type="text" id="username" v-model="state.username" />
@@ -16,7 +16,6 @@
     <div>
       <button @click="register">註冊</button>
     </div>
-    <router-view></router-view>
   </div>
 </template>
 

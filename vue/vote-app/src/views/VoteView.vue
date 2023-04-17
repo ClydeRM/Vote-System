@@ -1,13 +1,13 @@
 <template>
-  <div class="container">
-    <h1>VotingPage</h1>
-    <button @click="getVoteRecords">Get Vote Records</button>
+  <h1>VotingPage</h1>
+  <div class="container container d-flex flex-column justify-content-center align-items-center">
+    <button @click="getVoteRecords">目前投票數紀錄</button>
     <div>
       <input type="text" v-model="state.selectedItems">
-      <button @click="submitVoteRecords">Submit Vote Records</button>
+      <button @click="submitVoteRecords">投票</button>
     </div>
     <ul>
-      <li v-for="(item, index) in voteItems" :key="index">ItemId: {{ item.itemId }} | ItemName: {{ item.itemName }} | TotalCount: {{ item.count }}</li>
+      <li v-for="(item, index) in voteItems" :key="index">項目ID: {{ item.itemId }} | 項目名稱: {{ item.itemName }} | 投票總數: {{ item.count }}</li>
     </ul>
     <div>
       <router-link to="/dashboard">Dashboard</router-link>

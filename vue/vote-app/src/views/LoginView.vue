@@ -1,6 +1,6 @@
 <template>
   <h1>LoginPage</h1>
-  <div class="container">
+  <div class="container container d-flex flex-column justify-content-center align-items-center">
     <div>
       <label for="email">Email:</label>
       <input type="text" id="email" v-model="state.email" />
@@ -12,7 +12,6 @@
     <div>
       <button @click="login">登入</button>
     </div>
-    <router-view></router-view>
   </div>
 </template>
 
