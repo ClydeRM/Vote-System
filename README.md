@@ -49,7 +49,12 @@ PWD: 123456
                             ├── AuthenticationResponse // ResponseDTO at & rt
                             └── RegisterRequest// RegisterDTO uersname email & pwd 
                         ├── AuthenticationController // register authenticate refresh 路由
-                        └──  AuthenticationService // Authentication Business Login
+                        └── AuthenticationService // Authentication Business Login
+                    ├── common
+                        └── Exceptions
+                            ├── EmailAlreadyRegisteredException
+                            ├── VoteItemAlreadyExistedException
+                            └── VoteItemNotFoundException
                     ├── config
                         ├── ApplicationConfig // AuthenticationProvider AuthenticationManager etc..
                         ├── JwtAuthenticationFilter // Extends OncePerRequestFilter 
