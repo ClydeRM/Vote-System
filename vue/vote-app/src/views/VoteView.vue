@@ -6,9 +6,22 @@
       <input type="text" v-model="state.selectedItems">
       <button @click="submitVoteRecords">投票</button>
     </div>
-    <ul>
-      <li v-for="(item, index) in voteItems" :key="index">項目ID: {{ item.itemId }} | 項目名稱: {{ item.itemName }} | 投票總數: {{ item.count }}</li>
-    </ul>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="px-4 text-center">項目ID</th>
+            <th class="px-4 text-center">項目名稱</th>
+            <th class="px-4 text-center">投票總數</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in voteItems" :key="index">
+            <td class="px-4 text-center">{{ item.itemId }}</td>
+            <td class="px-4 text-center">{{ item.itemName }}</td>
+            <td class="px-4 text-center">{{ item.count }}</td>
+          </tr>
+        </tbody>
+      </table>
     <div>
       <router-link to="/dashboard">Dashboard</router-link>
     </div>
@@ -45,7 +58,7 @@ export default {
 
     const submitVoteRecords = async () => {
       try {
-        const response = await axios.post('http://localhost:8080/api/v1/vote/voteRecords', {
+        await axios.post('http://localhost:8080/api/v1/vote/voteRecords', {
           selectedItems: Array.from(state.selectedItems.split(','), item => parseInt(item)),
         }, {
           headers: {
