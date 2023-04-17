@@ -14,6 +14,21 @@ npm install
 npm run serve
 ```
 
+##  Test Data
+```
+ACC: leo@mail.com
+PWD: 123456
+
+ACC: sandy@mail.com
+PWD: 123456
+
+ACC: randy@mail.com
+PWD: 123456
+
+ACC: rsy@mail.com
+PWD: 123456
+```
+
 
 ##  專案結構
 ```
