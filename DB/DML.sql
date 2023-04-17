@@ -103,3 +103,29 @@ BEGIN
 END;
 $$;
 
+-- Function: public.find_all_vote_items()
+
+CREATE OR REPLACE FUNCTION public.find_all_vote_items()
+    RETURNS SETOF vote_items
+    LANGUAGE 'plpgsql'
+AS
+$$
+BEGIN
+    RETURN QUERY SELECT * FROM vote_items;
+END;
+$$;
+
+
+-- Function: public.find_all_vote_records()
+
+CREATE OR REPLACE FUNCTION public.find_all_vote_records()
+    RETURNS SETOF vote_record
+    LANGUAGE 'plpgsql'
+AS
+$$
+BEGIN
+    RETURN QUERY SELECT * FROM public.vote_record;
+END;
+$$;
+
+
