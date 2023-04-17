@@ -79,10 +79,10 @@ PWD: 123456
                         ├── DTO
                             ├── VoteRecordRequest // VoteRecordDTO
                             └── VoteRecordResult // VoteRecordDTO 
-                        ├── VoteController // getAllVoteRecord & Voting
-                        └── VoteRecordService // Voting Business Logic
+                        └── VoteController // getAllVoteRecord & Voting
                     ├── voterecord
                         ├── VoteRecord // VoteRecord Entity
+                        ├── VoteRecordService // Voting Business Logic
                         └── VoteRecordRepository // Repository 
                     └──  VoteApplication // main
              └──resurces
