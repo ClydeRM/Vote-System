@@ -1,4 +1,4 @@
-package com.bank.vote.votemodule;
+package com.bank.vote.voterecord;
 
 
 import com.bank.vote.common.Exceptions.VoteItemNotFoundException;
@@ -33,9 +33,9 @@ public class VoteRecordService {
         this.voteItemRepository = voteItemRepository;
         this.userRepository = userRepository;
     }
-
+    @Transactional(readOnly= false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public List<VoteRecordResponse> getVoteItemResults() {
-        List<VoteItem> voteItems = voteItemRepository.findAll();
+        List<VoteItem> voteItems = voteItemRepository.findAllVoteItems();
         List<VoteRecordResponse> results = new ArrayList<>();
 
         for (VoteItem item : voteItems) {
@@ -47,7 +47,7 @@ public class VoteRecordService {
     }
 
     @Transactional(readOnly= false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public boolean voteRecords(int userId, List<Integer> selectedItems) {
+    public boolean addVoteRecords(int userId, List<Integer> selectedItems) {
         // Check user、 voteItem is existed
         Optional<User> existingUser = userRepository.findById(userId);
         if (existingUser.isEmpty()) {
