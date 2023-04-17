@@ -1,18 +1,22 @@
 <template>
   <h1>RegisterPage</h1>
   <div class="container container d-flex flex-column justify-content-center align-items-center">
-    <div>
-      <label for="username">Username:</label>
-      <input type="text" id="username" v-model="state.username" />
-    </div>
-    <div>
-      <label for="email">Email:</label>
-      <input type="text" id="email" v-model="state.email" />
-    </div>
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" id="password" v-model="state.password" />
-    </div>
+    <table>
+      <tbody>
+        <tr>
+          <td><label for="username">Username:</label></td>
+          <td><input type="text" id="username" v-model="state.username" /></td>
+        </tr>
+        <tr>
+          <td><label for="email">Email:</label></td>
+          <td><input type="text" id="email" v-model="state.email" /></td>
+        </tr>
+        <tr>
+          <td><label for="password">Password:</label></td>
+          <td><input type="password" id="password" v-model="state.password" /></td>
+        </tr>
+      </tbody>
+    </table>
     <div>
       <button @click="register">註冊</button>
     </div>
