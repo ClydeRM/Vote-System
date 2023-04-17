@@ -16,7 +16,7 @@
         <tr>
           <td><label for="password">Password:</label></td>
           <td>
-            <input type="password" id="password" v-model="state.password" />
+            <input type="password" id="password" placeholder="6-12" v-model="state.password" />
           </td>
         </tr>
       </tbody>
@@ -44,10 +44,10 @@ export default {
     const register = async () => {
       const { username, email, password } = state;
 
-      const passwordRegex = /^[a-zA-Z0-9]+$/;
-      const emailRegex = /^[^\s@~!#$%&*|?]+@[^\s@~!#$%&*|?]+\.[^\s@~!#$%&*|?]+$/;
+      const passwordRegex = /^[a-zA-Z0-9]{6,12}$/;
+      const emailRegex = new RegExp("([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\"\(\[\]!#-[^-~ \t]|(\\[\t -~]))+\")@([!#-'*+/-9=?A-Z^-~-]+(\.[!#-'*+/-9=?A-Z^-~-]+)*|\[[\t -Z^-~]*])");
       const usernameRegex = /^[^\s@~!#$%&*|?-\\+]+$/;
-
+      
       try {
         if (!emailRegex.test(email)) {
           throw new Error("Credentials are not valid.");
