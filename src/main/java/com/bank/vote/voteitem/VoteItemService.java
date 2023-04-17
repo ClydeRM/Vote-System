@@ -23,8 +23,9 @@ public class VoteItemService {
         this.voteRecordRepository = voteRecordRepository;
     }
 
+    @Transactional(readOnly= false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public List<VoteItem> getAllVoteItems() {
-        return voteItemRepository.findAll();
+        return voteItemRepository.findAllVoteItems();
     }
 
     @Transactional(readOnly= false, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
