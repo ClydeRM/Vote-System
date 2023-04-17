@@ -86,6 +86,7 @@ PWD: 123456
     ├── vue <---------- 前端
        └── vote-app
             ├── public
+                └── index.html
             ├── src
                 ├── assets
                 ├── components
@@ -94,12 +95,12 @@ PWD: 123456
                 ├── store
                     └── index.js // Vuex store
                 ├── views
-                    ├── HomeView // Dashbord
+                    ├── HomeView // Home
+                    ├── DashboardView // Dashbord
                     ├── LoginView // Login
                     ├── RegisterView // Signup
                     └── VoteView // Polling 
                 ├── App.vue 
-                ├── index.html
                 └── main.js // main
             ├── .gitignore
             ├── package-lock.json
