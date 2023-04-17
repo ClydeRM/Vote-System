@@ -88,3 +88,18 @@ BEGIN
 END;
 $$;
 
+
+-- Function: public.find_vote_item_by_item_name(VARCHAR)
+
+CREATE OR REPLACE FUNCTION public.find_vote_item_by_item_name(
+    IN itemName VARCHAR
+)
+    RETURNS SETOF vote_items
+    LANGUAGE 'plpgsql'
+AS
+$$
+BEGIN
+    RETURN QUERY SELECT * FROM vote_items v WHERE v.item_name = itemName;
+END;
+$$;
+
