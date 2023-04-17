@@ -23,8 +23,13 @@ public class DashboardController {
     }
 
     @GetMapping("/voteItems")
-    public List<VoteItem> getAllVoteItem() {
-        return voteItemService.getAllVoteItems();
+    public ResponseEntity<List<VoteItem>> getAllVoteItems() {
+        List<VoteItem> voteItems = voteItemService.getAllVoteItems();
+        if (voteItems.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(voteItems);
+        }
     }
 
     @PostMapping("/voteItems")
