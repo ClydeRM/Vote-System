@@ -50,7 +50,7 @@ export default {
         store.commit("setAccessToken", response.data.access_token);
         store.commit("setRefreshToken", response.data.refresh_token);
 
-        router.push("/");
+        router.push("/dashboard");
       } catch (error) {
         console.error(error);
       }

@@ -10,7 +10,7 @@
       <li v-for="(item, index) in voteItems" :key="index">ItemId: {{ item.itemId }} | ItemName: {{ item.itemName }} | TotalCount: {{ item.count }}</li>
     </ul>
     <div>
-      <router-link to="/">Dashboard</router-link>
+      <router-link to="/dashboard">Dashboard</router-link>
     </div>
   </div>
 </template>
