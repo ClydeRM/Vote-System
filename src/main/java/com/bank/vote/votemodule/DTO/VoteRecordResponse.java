@@ -1,10 +1,11 @@
 package com.bank.vote.votemodule.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
-@Getter
+@Data
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class VoteRecordResponse {
     private Integer itemId;
     private String itemName;
