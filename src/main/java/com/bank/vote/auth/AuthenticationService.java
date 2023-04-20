@@ -102,7 +102,7 @@ public class AuthenticationService {
     }
 
     private boolean isValidEmail(String email) {
-        String regex = "^[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        String regex = "^[a-zA-Z0-9._]+@[a-z0-9.-]+\\.[a-z]{2,}$";
         return email.matches(regex);
     }
 
